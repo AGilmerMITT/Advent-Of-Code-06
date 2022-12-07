@@ -2,6 +2,7 @@
 {
     internal class Program
     {
+        static int Length = 14;
         static void Main(string[] args)
         {
             string data = GetInputData();
@@ -10,10 +11,11 @@
             for (int i = 0; i < data.Length; i++)
             {
                 recentChars[data[i]] = i;
-                recentChars.Remove(recentChars.FirstOrDefault(kvp => kvp.Value == i - 4).Key);
+                recentChars.Remove(recentChars.FirstOrDefault(kvp => kvp.Value == i - Length).Key);
                 if (HaveSignal(recentChars))
                 {
                     Console.WriteLine("Signal found at position: " + i);
+                    // note that the answer is 1 higher, because of 0-based indexing
                     break;
                 }
             }
@@ -26,7 +28,7 @@
 
         static bool HaveSignal(Dictionary<char, int> recent)
         {
-            return recent.Count == 4;
+            return recent.Count == Length;
         }
     }
 }
